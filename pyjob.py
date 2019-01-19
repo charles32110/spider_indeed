@@ -4,6 +4,7 @@ import requests
 import re
 import Queue
 import threading
+import csv
 '''
 url = 'https://www.seek.com.au/python-jobs/in-All-Sydney-NSW'
 head = {'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36'}
@@ -41,10 +42,23 @@ class spider(object):
 
     def getcontent(self):
         contuple = link_que.get()
-        jobtitle = contuple[0]
+        #jobtitle = contuple[0]
         src = self.url2 + contuple[1]
-
-
+        a = requests.get(url=src)
+        # 侧向标签分类
+        date = re.findall('<section role="region" aria-labelledby="jobInfoHeader">.*?<span class="lwHBT6d">(.*?)</span>', a.content, re.S)[0]
+        location = re.findall('<section role="region" aria-labelledby="jobInfoHeader">.*?<span class="eBOHjGN".*?</span>(.*?)</span>', a.content, re.S)[0]
+        jobtime = re.findall('<section role="region" aria-labelledby="jobInfoHeader">.*?data-automation="job-detail-work-type".*?class="lwHBT6d">(.*?)</span', a.content, re.S)[0]
+        jobtype = re.findall('<section role="region" aria-labelledby="jobInfoHeader">.*?<div.*?class="_2njvnpA">, </span>(.*?)</span', a.content, re.S)[0]
+        #文章主体内容
+        jobtitle = re.findall('<div data-automation="desktopTemplate".*?<h1 class="jobtitle">(.*?)</h1>', a.content, re.S)[0]
+        context = re.findall('<div data-automation="desktopTemplate".*?class="templatetext">(.*?)</div', a.content, re.S)[0]
+        context = re.sub('<[^<]+?>', '', context)#处理文本去掉标签
+        context = re.sub('  +', '', context)
+        with open('test.csv', 'a') as f:
+            writer = csv.writer(f)
+            writer.writerow([date, jobtitle, jobtype, jobtime, location, context])
+            f.close()
 
 
 
@@ -58,6 +72,7 @@ class spider(object):
             while not link_que.empty():
                 t2 = threading.Thread(target=self.getcontent)
                 t2.start()
+                t2.join()
 
 
 
