@@ -23,10 +23,11 @@ class spider(object):
 
     def __init__(self):
         self.url1 = 'https://www.seek.com.au/python-jobs/in-All-Sydney-NSW?page='
+        #self.url1 = 'https://www.seek.com.au/it-jobs/in-All-Sydney-NSW?page=2'
         self.url2 = 'https://www.seek.com.au'
         self.head = {'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6)\
          AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36'}
-        self.n = 27
+        #self.n = 50
 
     def getlink(self):
         global n
@@ -55,7 +56,7 @@ class spider(object):
         context = re.findall('<div data-automation="desktopTemplate".*?class="templatetext">(.*?)</div', a.content, re.S)[0]
         context = re.sub('<[^<]+?>', '', context)#处理文本去掉标签
         context = re.sub('  +', '', context)
-        with open('test.csv', 'a') as f:
+        with open('testpy.csv', 'a') as f:
             writer = csv.writer(f)
             writer.writerow([date, jobtitle, jobtype, jobtime, location, context])
             f.close()
