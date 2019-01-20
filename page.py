@@ -26,9 +26,9 @@ jobtitle = re.findall('<div data-automation="desktopTemplate".*?\
 <h1 class="jobtitle">(.*?)</h1>',a.content,re.S)[0]
 
 context = re.findall('<div data-automation="desktopTemplate".*?\
-class="templatetext">(.*?)</div',a.content,re.S)
+class="templatetext">(.*?)</div',a.content,re.S)[0]
 
-context= re.sub('<[^<]+?>', '', context[0])
+context= re.sub('<[^<]+?>', '', context)
 context = re.sub('  +','',context)
 with open('test.csv', 'a') as f:
     writer = csv.writer(f )

@@ -23,7 +23,7 @@ class spider(object):
 
     def __init__(self):
         self.url1 = 'https://www.seek.com.au/python-jobs/in-All-Sydney-NSW?page='
-        #self.url1 = 'https://www.seek.com.au/it-jobs/in-All-Sydney-NSW?page=2'
+        #self.url1 = 'https://www.seek.com.au/it-jobs/in-All-Sydney-NSW?page='
         self.url2 = 'https://www.seek.com.au'
         self.head = {'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6)\
          AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36'}
