@@ -44,7 +44,7 @@ source deactivate
 Windows:
 deactivate
 
-详情：
+详情：as
 https://blog.csdn.net/a857553315/article/details/81410142
 https://blog.csdn.net/u012343179/article/details/76146815#t9
 
